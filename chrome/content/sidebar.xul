@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://sxEdit/skin/main.css" type="text/css"?>
+
+<!DOCTYPE page SYSTEM "chrome://sxEdit/locale/sxEdit.dtd">
+<page id="sxEdit-window"
+      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+      onload="Startup()"
+      orient="vertical"
+      sizemode="maximized">
+  
+  <script type="application/x-javascript" src="chrome://sxEdit/content/sidebar.js"/>
+
+  <script type="application/x-javascript" src="chrome://sxEdit/content/misc/channels.js"/>
+  <script type="application/x-javascript" src="chrome://sxEdit/content/misc/handler.js"/>
+  <script type="application/x-javascript" src="chrome://sxEdit/content/misc/global.js"/>
+  <script type="application/x-javascript" src="chrome://sxEdit/content/misc/tools.js"/>
+
+  <script type="application/x-javascript" src="chrome://sxEdit/content/sxe4xmpp/sxe4xmpp.js"/>
+  <script type="application/x-javascript" src="chrome://sxEdit/content/sxe4xmpp/sxeChat.js"/>
+  <script type="application/x-javascript" src="chrome://sxEdit/content/sxe4xmpp/sxeFirstSync.js"/>
+  <script type="application/x-javascript" src="chrome://sxEdit/content/sxe4xmpp/sxeJingle.js"/>
+  <script type="application/x-javascript" src="chrome://sxEdit/content/sxe4xmpp/sxeMisc.js"/>
+  <script type="application/x-javascript" src="chrome://sxEdit/content/sxe4xmpp/sxeServiceDisco.js"/>
+  <script type="application/x-javascript" src="chrome://sxEdit/content/sxe4xmpp/sxeTreeCache.js"/>
+
+  <toolbox>
+    <toolbar id="nav-toolbar" align="center">
+      
+      <toolbarbutton oncommand="xmppUpDown();"
+                     id="upDownButton"
+                     tooltiptext="Connect"
+                     state="down" />
+      
+      <toolbarbutton oncommand="share();"
+                     id="shareButton"
+                     tooltiptext="Send invitation"
+                     disabled="true"
+                     state="disabled" />
+      
+      <progressmeter id="progressMetter"
+                     hidden="true"
+                     mode="undetermined" />
+      
+      <!--<toolbarbutton oncommand="makeTree();"-->
+      <!--               label="Tree"-->
+      <!--               id="treeButton"-->
+      <!--               tooltiptext="(tmp) Tree"-->
+      <!--               disabled="false" />-->
+      
+      <spacer flex="1" />
+      
+      <toolbarbutton id="optionsButton"
+                     tooltiptext="Options"
+                     type="menu-button">
+      <menupopup>          
+          <menuitem oncommand="optionsWindow();"     accesskey="O" label="Options..."/>
+          <menuitem oncommand="xmppconsoleWindow();" accesskey="X" label="XMPP console..."/>
+          <menuitem oncommand="aboutconfigWindow();" accesskey="C" label="about:config..."/>
+        </menupopup>
+      </toolbarbutton>
+      
+    </toolbar>
+  </toolbox>
+
+  <groupbox flex="1">
+  
+    <listbox id="peopleList"
+             flex="1"
+             disabled="true"
+             style="min-height: 2em;"/>
+    
+    <splitter collapse="before">
+      <grippy />
+    </splitter>
+		
+		<browser id="chat" 
+				type="content-primary"
+				src="chatLayout.html"
+				flex="1"
+				/>
+    
+    <!--<listbox   id="chat"
+               flex="1"
+               disabled="true"/>-->
+    
+    <hbox>
+      <textbox id="chatInput"
+               flex="1"
+               onchange='sendChat(); reset();' />
+      
+      <toolbarbutton id="chatInputSend"
+                     label="&#9166;"
+                     onmousedown="sendChat(); reset();"/>
+    </hbox>
+	
+	<checkbox id="needTimestamp"
+              label="timestamp"
+			  onmousedown="manageTimestamp();"/>
+  </groupbox>
+
+</page>

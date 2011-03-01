@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-15"?>
+<!-- Générateur de fichier install.rdf
+     http://xulfr.org, le 17/10/2009
+-->
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+  <Description about="urn:mozilla:install-manifest">
+    <em:name>sxEdit</em:name>
+    <em:version>0.2</em:version>
+    <em:id>sxEdit@kompozer.net</em:id>
+    <em:type>2</em:type>
+    <em:description>Shared XML Editing over XMPP</em:description>
+
+    <em:targetApplication>
+      <!-- KompoZer -->
+      <Description>
+       <em:id>{20aa4150-b5f4-11de-8a39-0800200c9a66}</em:id>
+       <em:minVersion>0.9a1pre</em:minVersion>
+       <em:maxVersion>0.9.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <em:targetApplication>
+      <!-- SeaMonkey -->
+      <Description>
+        <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
+        <em:minVersion>2.0</em:minVersion>
+        <em:maxVersion>2.0.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <!-- Equipe de developpement, contributeurs et traducteurs -->
+    <em:creator>Frederic Eterno</em:creator>
+
+    <!-- Informations diverses -->
+    <em:homepageURL>http://www.beafred.com/</em:homepageURL>
+
+  </Description>
+</RDF>

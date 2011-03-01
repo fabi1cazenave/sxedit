@@ -1,0 +1,4 @@
+content     sxEdit                 		chrome/content/
+resource    sxEdit                 		chrome/modules/
+locale      sxEdit      en-US      		chrome/locale/en-US/
+skin        sxEdit      classic/1.0    		chrome/skin/default/

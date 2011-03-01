@@ -1,0 +1,14 @@
+p {
+	margin: 0;
+	padding: 0;
+	margin-bottom: 2px;
+	font-size: 12px;
+}
+
+.hTimestamp {
+	display: none;
+}
+
+.vTimestamp {
+	display: inline;
+}

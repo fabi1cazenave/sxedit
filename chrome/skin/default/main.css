@@ -1,0 +1,27 @@
+#upDownButton[state="down"] {
+    list-style-image: url("chrome://sxEdit/skin/link.gif");
+}
+#upDownButton[state="up"] {
+    list-style-image: url("chrome://sxEdit/skin/stop.png");
+}
+
+
+
+#shareButton[state = "disabled"] {
+    list-style-image: url("chrome://sxEdit/skin/refresh-disabled.png");
+}
+#shareButton[state = "on"] {
+    list-style-image: url("chrome://sxEdit/skin/refresh.png");
+}
+#shareButton[state = "waiting"] {
+    list-style-image: url("chrome://sxEdit/skin/waiting.gif");
+}
+#shareButton[state = "done"] {
+    list-style-image: url("chrome://sxEdit/skin/refresh.png");
+}
+
+
+
+#optionsButton {
+    list-style-image: url("chrome://sxEdit/skin/options.png");
+}

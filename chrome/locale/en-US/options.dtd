@@ -1,0 +1,9 @@
+<!ENTITY account.address "Address:">
+<!ENTITY account.host "Server:">
+<!ENTITY account.port "Port:">
+<!ENTITY account.password "Password:">
+<!ENTITY account.security "Security:">
+<!ENTITY account.resource "Resource:">
+<!ENTITY account.label "Account">
+<!ENTITY account.autoLogin "Auto Login:">
+<!ENTITY caption.account "Account">

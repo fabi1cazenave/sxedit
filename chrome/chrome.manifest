@@ -1,0 +1,8 @@
+content   sxEdit    content/
+
+skin      sxEdit    default   skin/default/
+
+locale    sxEdit    en-US     locale/en-US/
+locale    branding  en-US     locale/branding/en-US/
+
+resource  sxEdit    modules/
