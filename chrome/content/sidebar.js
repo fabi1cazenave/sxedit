@@ -64,10 +64,15 @@ function xmppUpDown() {
 }
 
 function addMessageToChat(mess) {
-  var needScroll = true;
-  // if(gDialog.chat.contentDocument.body.scrollTop == gDialog.chat.contentDocument.body.scrollHeight) {
-    // needScroll = true;
-  // }
+  var needScroll = false;
+  var before = gDialog.chat.contentDocument.lastChild.scrollTop;
+  gDialog.chat.contentDocument.lastChild.scrollTop = gDialog.chat.contentDocument.lastChild.scrollHeight;
+  if(gDialog.chat.contentDocument.lastChild.scrollTop == before) {
+	needScroll = true;
+  }else {
+	gDialog.chat.contentDocument.lastChild.scrollTop = before;
+  }
+  
   var line = gDialog.chat.contentDocument.createElement("p");
 
   var msg = gDialog.chat.contentDocument.createElement("span");
@@ -84,7 +89,7 @@ function addMessageToChat(mess) {
   gDialog.chat.contentDocument.body.appendChild(line);
 
   if (needScroll) {
-    gDialog.chat.contentDocument.body.scrollTop = gDialog.chat.contentDocument.body.scrollHeight;
+    gDialog.chat.contentDocument.lastChild.scrollTop = gDialog.chat.contentDocument.lastChild.scrollHeight;
   }
 }
 
