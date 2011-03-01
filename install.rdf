@@ -7,7 +7,7 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
     <em:name>sxEdit</em:name>
-    <em:version>0.2</em:version>
+    <em:version>0.4a1</em:version>
     <em:id>sxEdit@kompozer.net</em:id>
     <em:type>2</em:type>
     <em:description>Shared XML Editing over XMPP</em:description>
