@@ -68,9 +68,9 @@ function addMessageToChat(mess) {
   var before = gDialog.chat.contentDocument.lastChild.scrollTop;
   gDialog.chat.contentDocument.lastChild.scrollTop = gDialog.chat.contentDocument.lastChild.scrollHeight;
   if(gDialog.chat.contentDocument.lastChild.scrollTop == before) {
-	needScroll = true;
+    needScroll = true;
   }else {
-	gDialog.chat.contentDocument.lastChild.scrollTop = before;
+    gDialog.chat.contentDocument.lastChild.scrollTop = before;
   }
   
   var line = gDialog.chat.contentDocument.createElement("p");
