@@ -1,14 +1,18 @@
-p {
+body p {
 	margin: 0;
 	padding: 0;
 	margin-bottom: 2px;
 	font-size: 12px;
 }
 
-.hTimestamp {
+body .hTimestamp {
 	display: none;
 }
 
-.vTimestamp {
+body .vTimestamp {
 	display: inline;
+}
+
+body {
+  background: white;
 }

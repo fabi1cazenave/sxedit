@@ -115,15 +115,32 @@ function cleanBoxes() {
 function manageTimestamp() {
   needTimestamp = !needTimestamp;
   if(needTimestamp) {
+    var needScroll = false;
+    var before = gDialog.chat.contentDocument.lastChild.scrollTop;
+    gDialog.chat.contentDocument.lastChild.scrollTop = gDialog.chat.contentDocument.lastChild.scrollHeight;
+    if(gDialog.chat.contentDocument.lastChild.scrollTop == before) {
+      needScroll = true;
+    }else {
+      gDialog.chat.contentDocument.lastChild.scrollTop = before;
+    }
+  
+  
     var stamps = gDialog.chat.contentDocument.getElementsByName("timestamp");
     for(i=0; i<stamps.length; i++) {
       stamps[i].className = "vTimestamp";
     }
+    document.getElementById("itemTimestamp").label = "Disable Timestamps";
+    
+    if (needScroll) {
+      gDialog.chat.contentDocument.lastChild.scrollTop = gDialog.chat.contentDocument.lastChild.scrollHeight;
+    }
+    
   } else {
     var stamps = gDialog.chat.contentDocument.getElementsByName("timestamp");
     for(i=0; i<stamps.length; i++) {
       stamps[i].className = "hTimestamp";
     }
+    document.getElementById("itemTimestamp").label = "Enable Timestamps";
   }
 }
 
@@ -131,7 +148,9 @@ function reset() {
   gDialog.chatInput.value = '';
 }
 
-
+function resize() {
+  gDialog.chat.contentDocument.lastChild.scrollTop = gDialog.chat.contentDocument.lastChild.scrollHeight;
+}
 
 /* Toolbar menupopup */
 
