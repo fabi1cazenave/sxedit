@@ -24,8 +24,7 @@ function synchronize() {
 // creates and returns the sxe message for offering the last document state
 function sxeStateOffer (from, dest, session) {
 
-  // XXX WTF ns_jingle_apps_xhtml does not work?
-  default xml namespace = ns_jah;
+  default xml namespace = ns_jingle_apps_xhtml;
   var desc = <description />;
 
   default xml namespace = ns_sxe;                                             // <sxe> namespace

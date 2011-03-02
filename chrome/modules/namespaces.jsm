@@ -51,6 +51,7 @@ var ns_avatar_metadata_notify   = 'urn:xmpp:avatar:metadata+notify';
 
 var ns_jingle                   = 'urn:xmpp:tmp:jingle';
 var ns_jingle_apps_xhtml        = 'urn:xmpp:tmp:jingle:apps:xhtml';
+
 var ns_jingle_trans_sxe         = 'urn:xmpp:tmp:jingle:transports:sxe';
 var ns_sxe                      = 'urn:xmpp:tmp:sxe';
 
@@ -60,7 +61,6 @@ var ns_vcard_update             = 'vcard-temp:x:update';
 var ns_iq                       = 'xmpp:iq';
 var ns_msg                      = 'xmpp:message';
 var ns_presence                 = 'xmpp:presence';
-
 
 for(var name in this) {
     if(name.match(/^ns_/)) {
