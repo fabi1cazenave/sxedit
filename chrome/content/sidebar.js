@@ -22,7 +22,7 @@ function xmppUpDown() {
       gDialog.chatInputSend.disabled = true;
 
       // writes a msg in the chat view
-      addMessageToChat("** Disconnected from XMPP network");
+      addMessageToChat("*", "Disconnected from XMPP network");
     }
 
     else {
@@ -45,7 +45,7 @@ function xmppUpDown() {
         gDialog.chatInputSend.disabled = false;
 
         // writes a msg in the chat view
-        addMessageToChat("** Connected to XMPP network");
+        addMessageToChat("*", "Connected to XMPP network");
 
         // joins the Room
         var sendTo = gSxe.room + "/" + account.jid;
@@ -63,7 +63,25 @@ function xmppUpDown() {
   });
 }
 
-function addMessageToChat(mess) {
+function manageHighLight() {
+  var lines = gDialog.chat.contentDocument.getElementsByTagName("p");
+  for(var i=0; i<lines.length; i++) {
+    if(lines[i].className == this.className) {
+      lines[i].style.backgroundColor = "#DBFFD6";
+    }else {
+      lines[i].style.backgroundColor = "white";
+    }
+  }
+}
+
+function clearHighLight() {
+  var lines = gDialog.chat.contentDocument.getElementsByTagName("p");
+  for(var i=0; i<lines.length; i++) {
+    lines[i].style.backgroundColor = "white";
+  }
+}
+
+function addMessageToChat(who, mess) {
   var needScroll = false;
   var before = gDialog.chat.contentDocument.lastChild.scrollTop;
   gDialog.chat.contentDocument.lastChild.scrollTop = gDialog.chat.contentDocument.lastChild.scrollHeight;
@@ -74,9 +92,11 @@ function addMessageToChat(mess) {
   }
   
   var line = gDialog.chat.contentDocument.createElement("p");
+  line.className = who;
+  line.addEventListener("mouseover", manageHighLight, false);
 
   var msg = gDialog.chat.contentDocument.createElement("span");
-  msg.textContent = mess;
+  msg.textContent = who + " : " + mess;
 
   var d = new Date();
   var timestamp = gDialog.chat.contentDocument.createElement("span");
@@ -141,6 +161,38 @@ function manageTimestamp() {
       stamps[i].className = "hTimestamp";
     }
     document.getElementById("itemTimestamp").label = "Enable Timestamps";
+  }
+}
+
+function manageSendChat() {
+  if(gDialog.chatInput.value != '') {
+    sendChat();
+    chatHistory.push(gDialog.chatInput.value);
+    chatHistoryIndex = chatHistory.length;
+    reset();
+  }
+}
+
+function manageKey(event) {
+  if(event.keyCode == 13) { // return key
+    manageSendChat();
+  }else if(event.keyCode == 38) { // up key
+    if(chatHistoryIndex > 0) {
+      if(gDialog.chatInput.value != '' && chatHistoryIndex == chatHistory.length) {
+        chatHistory.push(gDialog.chatInput.value);
+      }
+      chatHistoryIndex--;
+      gDialog.chatInput.value = chatHistory[chatHistoryIndex];
+    }
+  }else if(event.keyCode == 40) { // down key
+    if(chatHistoryIndex < chatHistory.length) {
+      chatHistoryIndex++;
+      if(chatHistoryIndex == chatHistory.length) {
+        gDialog.chatInput.value = '';
+      }else {
+        gDialog.chatInput.value = chatHistory[chatHistoryIndex];
+      }
+    }
   }
 }
 

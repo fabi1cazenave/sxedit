@@ -29,7 +29,7 @@ function channels() {
     ),
     function (message) {
       var who = message.stanza.@from.split("/")[1];
-      addMessageToChat(who + " : " + message.stanza.body);
+      addMessageToChat(who, message.stanza.body);
     }
   );
 
