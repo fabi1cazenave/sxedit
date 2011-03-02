@@ -101,7 +101,7 @@ function addMessageToChat(who, mess) {
   var d = new Date();
   var timestamp = gDialog.chat.contentDocument.createElement("span");
   timestamp.setAttribute( "name", "timestamp" );
-  timestamp.className = "hTimestamp";
+  timestamp.className = needTimestamp ? "vTimestamp" : "hTimestamp";
   timestamp.textContent = "[" + checkTime(d.getHours()) + ":" + checkTime(d.getMinutes()) + "] ";
 
   line.appendChild(timestamp);
