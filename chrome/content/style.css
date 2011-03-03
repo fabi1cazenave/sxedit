@@ -1,18 +1,22 @@
-body p {
-	margin: 0;
-	padding: 0;
-	margin-bottom: 2px;
-	font-size: 12px;
-}
-
-body .hTimestamp {
-	display: none;
-}
-
-body .vTimestamp {
-	display: inline;
-}
-
 body {
   background: white;
 }
+
+p {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 2px;
+  font-size: 12px;
+  clear: both;
+}
+
+/* show/hide timestamps */
+span.timestamp {
+  display: none;
+}
+.showTimestamp span.timestamp {
+  display: block;
+  float: right;
+  color: #666;
+}
+

@@ -8,7 +8,7 @@
       onload="Startup()"
       orient="vertical"
       sizemode="maximized">
-  
+
   <script type="application/x-javascript" src="chrome://sxEdit/content/sidebar.js"/>
 
   <script type="application/x-javascript" src="chrome://sxEdit/content/misc/channels.js"/>
@@ -26,75 +26,71 @@
 
   <toolbox>
     <toolbar id="nav-toolbar" align="center">
-      
+
       <toolbarbutton oncommand="xmppUpDown();"
                      id="upDownButton"
                      tooltiptext="Connect"
                      state="down" />
-      
+
       <toolbarbutton oncommand="share();"
                      id="shareButton"
                      tooltiptext="Send invitation"
                      disabled="true"
                      state="disabled" />
-      
+
       <progressmeter id="progressMetter"
                      hidden="true"
                      mode="undetermined" />
-      
+
       <!--<toolbarbutton oncommand="makeTree();"-->
       <!--               label="Tree"-->
       <!--               id="treeButton"-->
       <!--               tooltiptext="(tmp) Tree"-->
       <!--               disabled="false" />-->
-      
+
       <spacer flex="1" />
-      
+
       <toolbarbutton id="optionsButton"
                      tooltiptext="Options"
                      type="menu-button">
-      <menupopup>          
+      <menupopup>
           <menuitem oncommand="optionsWindow();"     accesskey="O" label="Options..."/>
-          <menuitem oncommand="xmppconsoleWindow();" accesskey="X" label="XMPP console..."/>
-          <menuitem oncommand="aboutconfigWindow();" accesskey="C" label="about:config..."/>
+          <menuitem oncommand="xmppConsoleWindow();" accesskey="X" label="XMPP console..."/>
+          <menuitem oncommand="aboutConfigWindow();" accesskey="C" label="about:config..."/>
         </menupopup>
       </toolbarbutton>
-      
+
     </toolbar>
   </toolbox>
-  
+
   <menupopup id="needTimestampPopUp">
-    <menuitem id="itemTimestamp" label="Enable Timestamps" onclick="manageTimestamp()" />
+    <menuitem label="Show Timestamps" type="checkbox" oncommand="toggleTimestamps(this)" />
   </menupopup>
 
   <groupbox flex="1">
-  
+
     <listbox id="peopleList"
              flex="1"
              disabled="true"
              style="min-height: 2em;"/>
-    
+
     <splitter collapse="before">
       <grippy />
     </splitter>
-		
-		<browser id="chat" 
-				type="content-primary"
-				src="chatLayout.html"
-				flex="1"
-        context="needTimestampPopUp"
-        onresize="resize()"
+
+    <browser id="chat"
+             type="content-primary"
+             src="chatLayout.html"
+             flex="1"
+             context="needTimestampPopUp"
+             onresize="scrollToBottom()"
     />
-    
-    <!--<listbox   id="chat"
-               flex="1"
-               disabled="true"/>-->
-    
+
     <hbox>
       <textbox id="chatInput"
                flex="1"
                onchange='sendChat(); reset();' />
-      
+
       <toolbarbutton id="chatInputSend"
                      label="&#9166;"
                      onmousedown="sendChat(); reset();"/>

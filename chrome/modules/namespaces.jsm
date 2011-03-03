@@ -62,9 +62,9 @@ var ns_iq                       = 'xmpp:iq';
 var ns_msg                      = 'xmpp:message';
 var ns_presence                 = 'xmpp:presence';
 
-for(var name in this) {
-    if(name.match(/^ns_/)) {
-	//dump(name,'ns');
-        EXPORTED_SYMBOLS.push(name);
-    }
+for (var name in this) {
+  if (name.match(/^ns_/)) {
+    dump(name + "\n");
+    EXPORTED_SYMBOLS.push(name);
+  }
 }

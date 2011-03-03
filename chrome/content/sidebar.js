@@ -64,83 +64,81 @@ function xmppUpDown() {
 }
 
 function addMessageToChat(mess) {
-  var needScroll = false;
-  var before = gDialog.chat.contentDocument.lastChild.scrollTop;
-  gDialog.chat.contentDocument.lastChild.scrollTop = gDialog.chat.contentDocument.lastChild.scrollHeight;
-  if(gDialog.chat.contentDocument.lastChild.scrollTop == before) {
-    needScroll = true;
-  }else {
-    gDialog.chat.contentDocument.lastChild.scrollTop = before;
-  }
-  
-  var line = gDialog.chat.contentDocument.createElement("p");
+  var chatContent = gDialog.chat.contentDocument;
+  var needScroll = isScrolledToBottom();
 
-  var msg = gDialog.chat.contentDocument.createElement("span");
+  // create message paragraph
+  var line = chatContent.createElement("p");
+  var msg  = chatContent.createElement("span");
   msg.textContent = mess;
 
+  // create timestamp span
+  function checkTime(i) {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
   var d = new Date();
-  var timestamp = gDialog.chat.contentDocument.createElement("span");
-  timestamp.setAttribute( "name", "timestamp" );
-  timestamp.className = "hTimestamp";
+  var timestamp = chatContent.createElement("span");
+  timestamp.className = "timestamp";
   timestamp.textContent = "[" + checkTime(d.getHours()) + ":" + checkTime(d.getMinutes()) + "] ";
 
+  // append full message to the chat page
   line.appendChild(timestamp);
   line.appendChild(msg);
-  gDialog.chat.contentDocument.body.appendChild(line);
+  chatContent.body.appendChild(line);
 
   if (needScroll) {
-    gDialog.chat.contentDocument.lastChild.scrollTop = gDialog.chat.contentDocument.lastChild.scrollHeight;
+    scrollToBottom();
   }
 }
 
-function checkTime(i) {
-  if (i < 10) {
-    i = "0" + i;
+// toggle timestamps in the chat box
+function toggleTimestamps(menuitem) {
+  var chatBody = gDialog.chat.contentDocument.body;
+  gShowTimestamps = !gShowTimestamps;
+
+  if (gShowTimestamps) {
+    var needScroll = isScrolledToBottom();
+    chatBody.className = "showTimestamp";
+    menuitem.setAttribute("checked", "true");
+    if (needScroll) {
+      scrollToBottom();
+    }
+  } else {
+    chatBody.className = "";
+    menuitem.removeAttribute("checked");
   }
-  return i;
+}
+
+// scroll chat box to bottom
+function scrollToBottom() {
+  var chatPage = gDialog.chat.contentDocument.lastChild; // <html> element
+  chatPage.scrollTop = chatPage.scrollHeight;
+}
+function isScrolledToBottom() {
+  var needScroll = false;
+  var chatPage = gDialog.chat.contentDocument.lastChild; // <html> element
+  var before = chatPage.scrollTop;
+  chatPage.scrollTop = chatPage.scrollHeight;
+  if (chatPage.scrollTop == before) {
+    needScroll = true;
+  } else {
+    chatPage.scrollTop = before;
+  }
+  return needScroll;
 }
 
 
 /* Fields cleaners */
+
 function cleanBoxes() {
   while (gDialog.peopleList.hasChildNodes()) {
     gDialog.peopleList.removeChild(gDialog.peopleList.firstChild);
   }
-
   while (gDialog.chat.hasChildNodes()) {
     gDialog.chat.removeChild(gDialog.chat.firstChild);
-  }
-}
-
-function manageTimestamp() {
-  needTimestamp = !needTimestamp;
-  if(needTimestamp) {
-    var needScroll = false;
-    var before = gDialog.chat.contentDocument.lastChild.scrollTop;
-    gDialog.chat.contentDocument.lastChild.scrollTop = gDialog.chat.contentDocument.lastChild.scrollHeight;
-    if(gDialog.chat.contentDocument.lastChild.scrollTop == before) {
-      needScroll = true;
-    }else {
-      gDialog.chat.contentDocument.lastChild.scrollTop = before;
-    }
-  
-  
-    var stamps = gDialog.chat.contentDocument.getElementsByName("timestamp");
-    for(i=0; i<stamps.length; i++) {
-      stamps[i].className = "vTimestamp";
-    }
-    document.getElementById("itemTimestamp").label = "Disable Timestamps";
-    
-    if (needScroll) {
-      gDialog.chat.contentDocument.lastChild.scrollTop = gDialog.chat.contentDocument.lastChild.scrollHeight;
-    }
-    
-  } else {
-    var stamps = gDialog.chat.contentDocument.getElementsByName("timestamp");
-    for(i=0; i<stamps.length; i++) {
-      stamps[i].className = "hTimestamp";
-    }
-    document.getElementById("itemTimestamp").label = "Enable Timestamps";
   }
 }
 
@@ -148,31 +146,28 @@ function reset() {
   gDialog.chatInput.value = '';
 }
 
-function resize() {
-  gDialog.chat.contentDocument.lastChild.scrollTop = gDialog.chat.contentDocument.lastChild.scrollHeight;
-}
-
 /* Toolbar menupopup */
 
-function aboutconfigWindow() {
+function aboutConfigWindow() {
   window.openDialog(
-  'about:config',
-  "",
-  "chrome,menubar,extra-chrome,toolbar,dialog=no,resizable"
+    'about:config',
+    "",
+    "chrome,menubar,extra-chrome,toolbar,dialog=no,resizable"
   );
 };
 
-function xmppconsoleWindow(){
+function xmppConsoleWindow(){
   window.openDialog(
-  "chrome://xmppdev/content/console.xul",
-  "",
-  "chrome,menubar,extra-chrome,toolbar,dialog=no,resizable");
+    "chrome://xmppdev/content/console.xul",
+    "",
+    "chrome,menubar,extra-chrome,toolbar,dialog=no,resizable"
+  );
 };
 
 function optionsWindow(){
   window.openDialog(
-  "chrome://sxEdit/content/options/options.xul",
-  "Preferences",
-  "chrome,menubar,extra-chrome,toolbar,dialog=no,resizable"
+    "chrome://sxEdit/content/options/options.xul",
+    "Preferences",
+    "chrome,menubar,extra-chrome,toolbar,dialog=no,resizable"
   );
 };
