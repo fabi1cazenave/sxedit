@@ -6,4 +6,7 @@
 <!ENTITY account.resource "Resource:">
 <!ENTITY account.label "Account">
 <!ENTITY account.autoLogin "Auto Login:">
+<!ENTITY account.color "Color:">
+<!ENTITY account.muc "Adresse MUC:">
+<!ENTITY account.timestamp "Show timestamps:">
 <!ENTITY caption.account "Account">

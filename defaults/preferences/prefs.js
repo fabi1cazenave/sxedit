@@ -42,4 +42,5 @@ pref("xmpp.account.sxedit.connectionPort",     5222);
 pref("xmpp.account.sxedit.connectionSecurity", 0);
 pref("xmpp.account.sxedit.resource",           "kompozer");
 pref("xmpp.account.sxedit.autoLogin",          true);
+pref("xmpp.account.sxedit.timestamp",          false);
 

@@ -58,6 +58,12 @@ function xmppUpDown() {
         // line.setAttribute("label", what);
         // gDialog.chat.appendChild(line);
         // gDialog.chat.ensureElementIsVisible(line);
+		
+		if(gShowTimestamps){
+		  var chatBody = gDialog.chat.contentDocument.body;
+		  var menuitem = document.getElementById("itemTimestamps");
+		  showTimestamps(menuitem, chatBody);
+		}
       });
     }
   });
@@ -113,18 +119,28 @@ function addMessageToChat(who, mess) {
 function toggleTimestamps(menuitem) {
   var chatBody = gDialog.chat.contentDocument.body;
   gShowTimestamps = !gShowTimestamps;
-
+  prefs.setBoolPref("timestamp", gShowTimestamps);
+  
   if (gShowTimestamps) {
-    var needScroll = isScrolledToBottom();
+   
+    showTimestamps(menuitem, chatBody);
+  } else {
+    removeTimestamps(menuitem, chatBody);
+  }
+}
+
+function showTimestamps(menuitem, chatBody) {
+	var needScroll = isScrolledToBottom();;
     chatBody.className = "showTimestamps";
     menuitem.setAttribute("checked", "true");
     if (needScroll) {
       scrollToBottom();
     }
-  } else {
+}
+
+function removeTimestamps(menuitem, chatBody) {
     chatBody.className = "";
     menuitem.removeAttribute("checked");
-  }
 }
 
 // XXX 

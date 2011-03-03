@@ -2,7 +2,7 @@
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
 <?xml-stylesheet href="chrome://sxEdit/skin/main.css" type="text/css"?>
 <!DOCTYPE dialog SYSTEM "chrome://sxEdit/locale/options.dtd">
-<prefwindow id="appPreferences" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" buttons="accept,cancel">
+<prefwindow id="appPreferences" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" buttons="accept,cancel" ondialogaccept="updateOptions()">
 
   <scriptset>
     <script type="application/x-javascript" src="chrome://sxEdit/content/options/options.js" />
@@ -16,7 +16,10 @@
       <preference id="pref-account-security" name="xmpp.account.sxedit.connectionSecurity" type="int"/>
       <preference id="pref-account-resource" name="xmpp.account.sxedit.resource" type="string"/>
       <preference id="pref-account-autoLogin" name="xmpp.account.sxedit.autoLogin" type="bool"/>
-    </preferences>
+	  <preference id="pref-account-color" name="xmpp.account.sxedit.color" type="string"/>
+	  <preference id="pref-account-timestamp" name="xmpp.account.sxedit.timestamp" type="bool"/>
+      <preference id="pref-account-muc" name="xmpp.account.sxedit.muc" type="string"/>
+	</preferences>
     <groupbox>
       <caption label="&caption.account;" />
       <grid flex="1">
@@ -35,7 +38,9 @@
           </row>
           <row>
             <label control="textbox-autoLogin" value="&account.autoLogin;"/>
-            <textbox id="textbox-autoLogin" preference="pref-account-autoLogin"/>
+			<hbox pack="center">
+              <checkbox id="textbox-autoLogin" preference="pref-account-autoLogin"/>
+			</hbox>
           </row>
           <row>
             <label control="textbox-resource" value="&account.resource;"/>
@@ -49,6 +54,20 @@
             <label control="textbox-port" value="&account.port;"/>
             <textbox id="textbox-port" type="number" preference="pref-account-port"/>
           </row>
+		  <row>
+		    <label control="textbox-muc" value="&account.muc;"/>
+            <textbox id="textbox-muc" preference="pref-account-muc"/>
+		  </row>
+		  <row>
+		    <label control="colorpicker-color" value="&account.color;"/>
+		    <colorpicker id="colorpicker-color" type="button" preference="pref-account-color" palettename="standard" />
+		  </row>
+		  <row>
+		    <label value="&account.timestamp;"/>
+		    <hbox pack="center">
+				<checkbox id="checkbox-timestamp" preference="pref-account-timestamp" />
+			</hbox>
+		  </row>
         </rows>
       </grid>
     </groupbox>
