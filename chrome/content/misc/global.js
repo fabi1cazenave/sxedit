@@ -5,6 +5,7 @@ Components.utils.import("resource://sxEdit/namespaces.jsm");
 var gDialog = {};
 var gSxe    = {};
 var gShowTimestamps = false;
+var gLastSender = "";
 var chatHistory = [];
 var chatHistoryIndex = 0;
 

@@ -63,14 +63,28 @@ function xmppUpDown() {
   });
 }
 
-function addMessageToChat(mess) {
+function addMessageToChat(who, mess) {
+  trace(mess, "message");
   var chatContent = gDialog.chat.contentDocument;
   var needScroll = isScrolledToBottom();
 
   // create message paragraph
   var line = chatContent.createElement("p");
-  var msg  = chatContent.createElement("span");
-  msg.textContent = mess;
+  line.className = who;
+  line.addEventListener("mouseover", manageHighLight, false);
+
+  // create sender span
+  var sender = chatContent.createElement("span");
+  if (gLastSender != who || gLastSender.length == 0) {
+    sender.className = "sender";
+    sender.textContent = who;
+    gLastSender = who;
+  }
+
+  // create message span
+  var message = chatContent.createElement("span");
+  message.className = "message";
+  message.textContent = mess;
 
   // create timestamp span
   function checkTime(i) {
@@ -85,8 +99,9 @@ function addMessageToChat(mess) {
   timestamp.textContent = "[" + checkTime(d.getHours()) + ":" + checkTime(d.getMinutes()) + "] ";
 
   // append full message to the chat page
+  line.appendChild(sender);
   line.appendChild(timestamp);
-  line.appendChild(msg);
+  line.appendChild(message);
   chatContent.body.appendChild(line);
 
   if (needScroll) {
@@ -101,7 +116,7 @@ function toggleTimestamps(menuitem) {
 
   if (gShowTimestamps) {
     var needScroll = isScrolledToBottom();
-    chatBody.className = "showTimestamp";
+    chatBody.className = "showTimestamps";
     menuitem.setAttribute("checked", "true");
     if (needScroll) {
       scrollToBottom();

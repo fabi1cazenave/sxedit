@@ -1,20 +1,34 @@
 body {
   background: white;
+  padding: 0;
+  margin: 0 5px;
 }
 
 p {
-  margin: 0;
-  padding: 0;
-  margin-bottom: 2px;
+  margin: 0 0 2px 0;
   font-size: 12px;
   clear: both;
+  color: black;
+}
+
+/* nickname of the sender */
+span.sender {
+  font-weight: bold;
+  /* optional: use the sender nick as separator */
+  display: block;
+  padding: 0 5px;
+  background-color: blue;
+  color: white;
+}
+span.sender:after {
+  content: ": ";
 }
 
 /* show/hide timestamps */
 span.timestamp {
   display: none;
 }
-.showTimestamp span.timestamp {
+.showTimestamps span.timestamp {
   display: block;
   float: right;
   color: #666;

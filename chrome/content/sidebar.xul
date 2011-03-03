@@ -63,40 +63,41 @@
     </toolbar>
   </toolbox>
 
-  <menupopup id="needTimestampPopUp">
+  <menupopup id="chatPopup">
     <menuitem label="Show Timestamps" type="checkbox" oncommand="toggleTimestamps(this)" />
   </menupopup>
 
   <groupbox flex="1">
 
+    <!-- roster -->
     <listbox id="peopleList"
              flex="1"
              disabled="true"
              style="min-height: 2em;"/>
-
     <splitter collapse="before">
       <grippy />
     </splitter>
 
+    <!-- message window -->
     <browser id="chat"
              type="content-primary"
              src="chatLayout.html"
-             flex="1"
-             context="needTimestampPopUp"
-             onresize="resize()"
+             flex="2"
+             context="chatPopup"
+             onresize="scrollToBottom()"
              onmouseout="clearHighLight()"
     />
 
+    <!-- input -->
     <hbox>
       <textbox id='chatInput'
                flex='1'
                onkeydown='manageKey(event);'
-
       />
-
       <toolbarbutton id="chatInputSend"
                      label="&#9166;"
-                     onmousedown="manageSendChat();"/>
+                     onmousedown="manageSendChat();"
+      />
     </hbox>
   </groupbox>
 
