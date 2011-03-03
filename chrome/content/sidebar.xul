@@ -83,17 +83,20 @@
              src="chatLayout.html"
              flex="1"
              context="needTimestampPopUp"
-             onresize="scrollToBottom()"
+             onresize="resize()"
+             onmouseout="clearHighLight()"
     />
 
     <hbox>
-      <textbox id="chatInput"
-               flex="1"
-               onchange='sendChat(); reset();' />
+      <textbox id='chatInput'
+               flex='1'
+               onkeydown='manageKey(event);'
+
+      />
 
       <toolbarbutton id="chatInputSend"
                      label="&#9166;"
-                     onmousedown="sendChat(); reset();"/>
+                     onmousedown="manageSendChat();"/>
     </hbox>
   </groupbox>
 

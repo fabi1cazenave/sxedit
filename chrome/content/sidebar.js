@@ -22,7 +22,7 @@ function xmppUpDown() {
       gDialog.chatInputSend.disabled = true;
 
       // writes a msg in the chat view
-      addMessageToChat("** Disconnected from XMPP network");
+      addMessageToChat("*", "Disconnected from XMPP network");
     }
 
     else {
@@ -45,7 +45,7 @@ function xmppUpDown() {
         gDialog.chatInputSend.disabled = false;
 
         // writes a msg in the chat view
-        addMessageToChat("** Connected to XMPP network");
+        addMessageToChat("*", "Connected to XMPP network");
 
         // joins the Room
         var sendTo = gSxe.room + "/" + account.jid;
@@ -112,6 +112,24 @@ function toggleTimestamps(menuitem) {
   }
 }
 
+// XXX 
+function manageHighLight() {
+  var lines = gDialog.chat.contentDocument.getElementsByTagName("p");
+  for (var i = 0; i < lines.length; i++) {
+    if (lines[i].className == this.className) {
+      lines[i].style.backgroundColor = "#DBFFD6";
+    } else {
+      lines[i].style.backgroundColor = "white";
+    }
+  }
+}
+function clearHighLight() {
+  var lines = gDialog.chat.contentDocument.getElementsByTagName("p");
+  for (var i = 0; i < lines.length; i++) {
+    lines[i].style.backgroundColor = "white";
+  }
+}
+
 // scroll chat box to bottom
 function scrollToBottom() {
   var chatPage = gDialog.chat.contentDocument.lastChild; // <html> element
@@ -139,6 +157,38 @@ function cleanBoxes() {
   }
   while (gDialog.chat.hasChildNodes()) {
     gDialog.chat.removeChild(gDialog.chat.firstChild);
+  }
+}
+
+function manageSendChat() {
+  if (gDialog.chatInput.value != '') {
+    sendChat();
+    chatHistory.push(gDialog.chatInput.value);
+    chatHistoryIndex = chatHistory.length;
+    reset();
+  }
+}
+
+function manageKey(event) {
+  if (event.keyCode == 13) { // return key
+    manageSendChat();
+  } else if (event.keyCode == 38) { // up key
+    if (chatHistoryIndex > 0) {
+      if (gDialog.chatInput.value != '' && chatHistoryIndex == chatHistory.length) {
+        chatHistory.push(gDialog.chatInput.value);
+      }
+      chatHistoryIndex--;
+      gDialog.chatInput.value = chatHistory[chatHistoryIndex];
+    }
+  } else if (event.keyCode == 40) { // down key
+    if (chatHistoryIndex < chatHistory.length) {
+      chatHistoryIndex++;
+      if (chatHistoryIndex == chatHistory.length) {
+        gDialog.chatInput.value = '';
+      } else {
+        gDialog.chatInput.value = chatHistory[chatHistoryIndex];
+      }
+    }
   }
 }
 
