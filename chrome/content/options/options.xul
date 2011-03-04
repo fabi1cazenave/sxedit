@@ -5,7 +5,9 @@
 <prefwindow
     id="appPreferences"
     buttons="accept,cancel"
-    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	ondialogcancel="updateOptions()"
+	ondialogaccept="updateOptions()">
 
   <scriptset>
     <script type="application/x-javascript" src="chrome://sxEdit/content/options/options.js" />

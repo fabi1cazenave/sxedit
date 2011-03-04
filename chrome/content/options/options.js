@@ -20,9 +20,10 @@ function updateOptions() {
 
   var menuitem = window.opener.document.getElementById("itemTimestamps");
   var chatBody = window.opener.gDialog.chat.contentDocument.body;
+
   if (window.opener.gMUC.showTimestamps) {
     window.opener.showTimestamps(menuitem, chatBody);
   } else {
-    window.opener.removeTimestamps(menuitem, chatBody);
+    window.opener.hideTimestamps(menuitem, chatBody);
   }
 };

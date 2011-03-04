@@ -127,7 +127,7 @@ function toggleTimestamps(menuitem) {
   }
 }
 function showTimestamps(menuitem, chatBody) {
-  var needScroll = isScrolledToBottom();;
+  var needScroll = isScrolledToBottom();
   chatBody.className = "showTimestamps";
   menuitem.setAttribute("checked", "true");
   if (needScroll) {
