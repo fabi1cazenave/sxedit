@@ -1,27 +1,32 @@
 <?xml version="1.0"?>
-<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
-<?xml-stylesheet href="chrome://sxEdit/skin/main.css" type="text/css"?>
+<?xml-stylesheet type="text/css" href="chrome://global/skin/global.css"?>
+<?xml-stylesheet type="text/css" href="chrome://sxEdit/skin/main.css"?>
 <!DOCTYPE dialog SYSTEM "chrome://sxEdit/locale/options.dtd">
-<prefwindow id="appPreferences" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" buttons="accept,cancel" ondialogaccept="updateOptions()">
+<prefwindow
+    id="appPreferences"
+    buttons="accept,cancel"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <scriptset>
     <script type="application/x-javascript" src="chrome://sxEdit/content/options/options.js" />
   </scriptset>
 
-  <prefpane id="pane-account" label="&account.label;"  onpaneload="getPwd();">
+  <prefpane id="pane-account" label="&xmppPrefs.label;" onpaneload="getPwd();">
     <preferences>
-      <preference id="pref-account-address" name="xmpp.account.sxedit.address" type="string"/>
-      <preference id="pref-account-host" name="xmpp.account.sxedit.connectionHost" type="string"/>
-      <preference id="pref-account-port" name="xmpp.account.sxedit.connectionPort" type="int"/>
-      <preference id="pref-account-security" name="xmpp.account.sxedit.connectionSecurity" type="int"/>
-      <preference id="pref-account-resource" name="xmpp.account.sxedit.resource" type="string"/>
-      <preference id="pref-account-autoLogin" name="xmpp.account.sxedit.autoLogin" type="bool"/>
-	  <preference id="pref-account-color" name="xmpp.account.sxedit.color" type="string"/>
-	  <preference id="pref-account-timestamp" name="xmpp.account.sxedit.timestamp" type="bool"/>
-      <preference id="pref-account-muc" name="xmpp.account.sxedit.muc" type="string"/>
-	</preferences>
+      <preference type="string" id="pref-account-address"   name="xmpp.account.sxedit.address"/>
+      <preference type="string" id="pref-account-host"      name="xmpp.account.sxedit.connectionHost"/>
+      <preference type="int"    id="pref-account-port"      name="xmpp.account.sxedit.connectionPort"/>
+      <preference type="int"    id="pref-account-security"  name="xmpp.account.sxedit.connectionSecurity"/>
+      <preference type="string" id="pref-account-resource"  name="xmpp.account.sxedit.resource"/>
+      <preference type="bool"   id="pref-account-autoLogin" name="xmpp.account.sxedit.autoLogin"/>
+      <preference type="string" id="pref-account-color"     name="xmpp.account.sxedit.color"/>
+      <preference type="bool"   id="pref-account-timestamp" name="xmpp.account.sxedit.timestamp"/>
+      <preference type="string" id="pref-account-muc"       name="xmpp.account.sxedit.muc"/>
+    </preferences>
+
+    <!-- XMPP Account -->
     <groupbox>
-      <caption label="&caption.account;" />
+      <caption label="&account.caption;" />
       <grid flex="1">
         <columns>
           <column />
@@ -29,48 +34,57 @@
         </columns>
         <rows>
           <row>
-            <label control="textbox-address" value="&account.address;"/>
+            <label control="textbox-address" value="&accountAddress.label;"/>
             <textbox id="textbox-address" preference="pref-account-address"/>
           </row>
           <row>
-            <label control="textbox-password" value="&account.password;"/>
+            <label control="textbox-password" value="&accountPassword.label;"/>
             <textbox id="textbox-password" type="password" oninput="setPwd(this.value);"/>
           </row>
           <row>
-            <label control="textbox-autoLogin" value="&account.autoLogin;"/>
-			<hbox pack="center">
-              <checkbox id="textbox-autoLogin" preference="pref-account-autoLogin"/>
-			</hbox>
-          </row>
-          <row>
-            <label control="textbox-resource" value="&account.resource;"/>
+            <label control="textbox-resource" value="&accountResource.label;"/>
             <textbox id="textbox-resource" preference="pref-account-resource"/>
           </row>
           <row>
-            <label control="textbox-host" value="&account.host;"/>
+            <label control="textbox-host" value="&accountHost.label;"/>
             <textbox id="textbox-host" preference="pref-account-host"/>
           </row>
           <row>
-            <label control="textbox-port" value="&account.port;"/>
+            <label control="textbox-port" value="&accountPort.label;"/>
             <textbox id="textbox-port" type="number" preference="pref-account-port"/>
           </row>
-		  <row>
-		    <label control="textbox-muc" value="&account.muc;"/>
-            <textbox id="textbox-muc" preference="pref-account-muc"/>
-		  </row>
-		  <row>
-		    <label control="colorpicker-color" value="&account.color;"/>
-		    <colorpicker id="colorpicker-color" type="button" preference="pref-account-color" palettename="standard" />
-		  </row>
-		  <row>
-		    <label value="&account.timestamp;"/>
-		    <hbox pack="center">
-				<checkbox id="checkbox-timestamp" preference="pref-account-timestamp" />
-			</hbox>
-		  </row>
+          <row>
+            <label control="textbox-autoLogin" value="&accountAutoLogin.label;"/>
+            <checkbox id="textbox-autoLogin" preference="pref-account-autoLogin"/>
+          </row>
         </rows>
       </grid>
     </groupbox>
+
+    <!-- Multi-User Chatroom -->
+    <groupbox>
+      <caption label="&muc.caption;" />
+      <grid flex="1">
+        <columns>
+          <column />
+          <column flex="1"/>
+        </columns>
+        <rows>
+          <row>
+            <label control="textbox-muc" value="&mucAddress.label;"/>
+            <textbox id="textbox-muc" preference="pref-account-muc"/>
+          </row>
+          <row>
+            <label control="colorpicker-color" value="&mucColor.label;"/>
+            <colorpicker id="colorpicker-color" type="button" preference="pref-account-color" palettename="standard" />
+          </row>
+          <row>
+            <label value="&mucTimestamp.label;"/>
+            <checkbox id="checkbox-timestamp" preference="pref-account-timestamp" />
+          </row>
+        </rows>
+      </grid>
+    </groupbox>
+
   </prefpane>
 </prefwindow>
-

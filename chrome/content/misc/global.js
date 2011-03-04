@@ -2,39 +2,45 @@
 
 Components.utils.import("resource://sxEdit/namespaces.jsm");
 
-var gDialog = {};
-var gSxe    = {};
-var gShowTimestamps = false;
-var gLastSender = "";
-var chatHistory = [];
-var chatHistoryIndex = 0;
-var prefs 	= null;
+var gPrefs  = null;
+var gSXE    = {}; // SXE engine
+var gMUC    = {}; // Multi-User Chat
+var gDialog = {}; // UI elements
+
+//var gShowTimestamps = false;
+//var gLastSender = "";
+//var chatHistory = [];
+//var chatHistoryIndex = 0;
 
 function Startup() {
 
-  /* Get preferences */
-  prefs = Components.classes["@mozilla.org/preferences-service;1"]
-                    .getService(Components.interfaces.nsIPrefService);
-  prefs = prefs.getBranch("xmpp.account.sxedit.")
+  // Get preferences
+  gPrefs = Components.classes["@mozilla.org/preferences-service;1"]
+                     .getService(Components.interfaces.nsIPrefService);
+  gPrefs = gPrefs.getBranch("xmpp.account.sxedit.")
 
-  /* Sidebar */
-  gDialog.upDownButton    = document.getElementById("upDownButton");
-  gDialog.shareButton     = document.getElementById("shareButton");
-  gDialog.progressMetter  = document.getElementById("progressMetter");
-  gDialog.treeButton      = document.getElementById("treeButton");
-  gDialog.optionsButton   = document.getElementById("optionsButton");
+  // Sidebar elements
+  gDialog.upDownButton   = document.getElementById("upDownButton");
+  gDialog.shareButton    = document.getElementById("shareButton");
+  gDialog.progressMetter = document.getElementById("progressMetter");
+  gDialog.treeButton     = document.getElementById("treeButton");
+  gDialog.optionsButton  = document.getElementById("optionsButton");
 
-  gDialog.peopleList    = document.getElementById("peopleList");
-  gDialog.chat          = document.getElementById("chat");
-  gDialog.chatInput     = document.getElementById("chatInput");
-  gDialog.chatInputSend = document.getElementById("chatInputSend");
+  gDialog.peopleList     = document.getElementById("peopleList");
+  gDialog.chat           = document.getElementById("chat");
+  gDialog.chatInput      = document.getElementById("chatInput");
+  gDialog.chatInputSend  = document.getElementById("chatInputSend");
 
-  gShowTimestamps 		= prefs.getBoolPref("timestamp");
+  // Multi-User Chat
+  gMUC.showTimestamps = gPrefs.getBoolPref("timestamp");
+  gMUC.lastSender     = "";
+  gMUC.history        = [];
+  gMUC.historyIndex   = 0;
   
-  /* Sxe engine */
-  gSxe.room             = prefs.getCharPref("muc");
-  gSxe.initiator        = "";
-  gSxe.sessionInit      = "";
-  gSxe.jingleInit       = "";
+  // SXE engine
+  gSXE.room           = gPrefs.getCharPref("muc");
+  gSXE.initiator      = "";
+  gSXE.sessionInit    = "";
+  gSXE.jingleInit     = "";
 
 }

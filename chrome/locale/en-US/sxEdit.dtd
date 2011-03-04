@@ -1,1 +1,10 @@
+<!ENTITY upDownButton.tooltip   "connect/disconnect">
+<!ENTITY shareButton.tooltip    "send invitation">
+<!ENTITY optionsButton.tooltip  "options">
 
+<!ENTITY xmppOptions.label      "XMPP Settings…">
+<!ENTITY xmppOptions.accesskey  "s">
+<!ENTITY xmppConsole.label      "XMPP Console…">
+<!ENTITY xmppConsole.accesskey  "c">
+<!ENTITY aboutConfig.label      "about:config…">
+<!ENTITY aboutConfig.accesskey  "a">

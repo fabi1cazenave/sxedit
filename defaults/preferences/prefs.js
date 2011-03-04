@@ -43,4 +43,5 @@ pref("xmpp.account.sxedit.connectionSecurity", 0);
 pref("xmpp.account.sxedit.resource",           "kompozer");
 pref("xmpp.account.sxedit.autoLogin",          true);
 pref("xmpp.account.sxedit.timestamp",          false);
+pref("xmpp.account.sxedit.muc",                "sxe@conference.papaya.im");
 

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://sxEdit/skin/main.css" type="text/css"?>
+<?xml-stylesheet type="text/css" href="chrome://global/skin/"?>
+<?xml-stylesheet type="text/css" href="chrome://sxEdit/skin/main.css"?>
 
 <!DOCTYPE page SYSTEM "chrome://sxEdit/locale/sxEdit.dtd">
 <page id="sxEdit-window"
@@ -27,14 +27,14 @@
   <toolbox>
     <toolbar id="nav-toolbar" align="center">
 
-      <toolbarbutton oncommand="xmppUpDown();"
-                     id="upDownButton"
-                     tooltiptext="Connect"
+      <toolbarbutton id="upDownButton"
+                     oncommand="xmppUpDown();"
+                     tooltiptext="&upDownButton.tooltip;"
                      state="down" />
 
-      <toolbarbutton oncommand="share();"
-                     id="shareButton"
-                     tooltiptext="Send invitation"
+      <toolbarbutton id="shareButton"
+                     oncommand="share();"
+                     tooltiptext="&shareButton.tooltip;"
                      disabled="true"
                      state="disabled" />
 
@@ -51,12 +51,15 @@
       <spacer flex="1" />
 
       <toolbarbutton id="optionsButton"
-                     tooltiptext="Options"
+                     tooltiptext="&optionsButton.tooltip;"
                      type="menu-button">
-      <menupopup>
-          <menuitem oncommand="optionsWindow();"     accesskey="O" label="Options..."/>
-          <menuitem oncommand="xmppConsoleWindow();" accesskey="X" label="XMPP console..."/>
-          <menuitem oncommand="aboutConfigWindow();" accesskey="C" label="about:config..."/>
+        <menupopup>
+          <menuitem oncommand="xmppOptionsWindow();" accesskey="&xmppOptions.accesskey;"
+                                                         label="&xmppOptions.label;"/>
+          <menuitem oncommand="xmppConsoleWindow();" accesskey="&xmppConsole.accesskey;"
+                                                         label="&xmppConsole.label;"/>
+          <menuitem oncommand="aboutConfigWindow();" accesskey="&aboutConfig.accesskey;"
+                                                         label="&aboutConfig.label;"/>
         </menupopup>
       </toolbarbutton>
 

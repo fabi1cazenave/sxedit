@@ -6,7 +6,7 @@ function sendChat() {
 
   // what we send to whom ?
   var toSend = gDialog.chatInput.value;
-  var sendTo = gSxe.room;
+  var sendTo = gSXE.room;
 
   // constructs the XMPP message
   var msg =   <message to={sendTo} type='groupchat'>

@@ -1,12 +1,16 @@
-<!ENTITY account.address "Address:">
-<!ENTITY account.host "Server:">
-<!ENTITY account.port "Port:">
-<!ENTITY account.password "Password:">
-<!ENTITY account.security "Security:">
-<!ENTITY account.resource "Resource:">
-<!ENTITY account.label "Account">
-<!ENTITY account.autoLogin "Auto Login:">
-<!ENTITY account.color "Color:">
-<!ENTITY account.muc "Adresse MUC:">
-<!ENTITY account.timestamp "Show timestamps:">
-<!ENTITY caption.account "Account">
+<!ENTITY xmppPrefs.label        "XMPP Settings">
+
+<!ENTITY account.caption        "Account">
+<!ENTITY accountAddress.label   "Jabber ID:">
+<!ENTITY accountHost.label      "Server:">
+<!ENTITY accountPort.label      "Port:">
+<!ENTITY accountPassword.label  "Password:">
+<!ENTITY accountSecurity.label  "Security:">
+<!ENTITY accountResource.label  "Resource:">
+<!ENTITY accountLabel.label     "Account">
+<!ENTITY accountAutoLogin.label "Auto Login:">
+
+<!ENTITY muc.caption            "Multi-User Chatroom">
+<!ENTITY mucAddress.label       "MUC address:">
+<!ENTITY mucColor.label         "Color:">
+<!ENTITY mucTimestamp.label     "Timestamps:">

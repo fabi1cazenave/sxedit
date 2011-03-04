@@ -15,14 +15,14 @@ function getPwd() {
 };
 
 function updateOptions() {
-  window.opener.gSxe.room = window.opener.prefs.getCharPref("muc");
-  window.opener.gShowTimestamps = window.opener.prefs.getBoolPref("timestamp");
-  
+  window.opener.gSXE.room           = window.opener.gPrefs.getCharPref("muc");
+  window.opener.gMUC.showTimestamps = window.opener.gPrefs.getBoolPref("timestamp");
+
   var menuitem = window.opener.document.getElementById("itemTimestamps");
   var chatBody = window.opener.gDialog.chat.contentDocument.body;
-  if(window.opener.gShowTimestamps){
+  if (window.opener.gMUC.showTimestamps) {
     window.opener.showTimestamps(menuitem, chatBody);
-  }else{
+  } else {
     window.opener.removeTimestamps(menuitem, chatBody);
   }
 };

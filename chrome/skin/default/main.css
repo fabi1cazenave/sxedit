@@ -6,7 +6,6 @@
 }
 
 
-
 #shareButton[state = "disabled"] {
     list-style-image: url("chrome://sxEdit/skin/refresh-disabled.png");
 }
@@ -21,7 +20,11 @@
 }
 
 
-
 #optionsButton {
     list-style-image: url("chrome://sxEdit/skin/options.png");
+}
+
+/* options dialog */
+prefwindow label {
+  text-align: right;
 }

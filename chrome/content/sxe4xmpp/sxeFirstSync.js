@@ -4,7 +4,7 @@
 
 function synchronize() {
   // what we send to whom ?
-  var who = gSxe.room + "/" + gDialog.peopleList.getSelectedItem(0).getAttribute("label");
+  var who = gSXE.room + "/" + gDialog.peopleList.getSelectedItem(0).getAttribute("label");
   var docRoot = window.top.GetCurrentEditor().document;
 
   // sends the msg

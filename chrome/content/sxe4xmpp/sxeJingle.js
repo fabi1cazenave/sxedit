@@ -3,14 +3,14 @@
   **/
 
 function share() {
-  var who = gSxe.room +'/'+gDialog.peopleList.getSelectedItem(0).getAttribute("label");
-  gSxe.sessionInit = randomString(5);
-  gSxe.jingleInit  = randomString(6);
+  var who = gSXE.room +'/'+gDialog.peopleList.getSelectedItem(0).getAttribute("label");
+  gSXE.sessionInit = randomString(5);
+  gSXE.jingleInit  = randomString(6);
 
   XMPP.accounts.forEach(function(account) {
     XMPP.send(
       account,
-      sxeSessionInitiate(gSxe.sessionInit, account.jid, who, gSxe.jingleInit, 'current-document name', gSxe.room),
+      sxeSessionInitiate(gSXE.sessionInit, account.jid, who, gSXE.jingleInit, 'current-document name', gSXE.room),
       function(reply) {
         gDialog.shareButton.setAttribute("state", "waiting");
       }

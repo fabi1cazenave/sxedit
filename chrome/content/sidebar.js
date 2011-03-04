@@ -48,29 +48,28 @@ function xmppUpDown() {
         addMessageToChat("*", "Connected to XMPP network");
 
         // joins the Room
-        var sendTo = gSxe.room + "/" + account.jid;
+        var sendTo = gSXE.room + "/" + account.jid;
         var stanza = <presence to={sendTo} />;
         XMPP.accounts.forEach(function(account) { XMPP.send(account, stanza); });
 
         // writes a msg in the chat view
         // var line = document.createElement("listitem");
-        // var what = "** ROOM ("+gSxe.room+") joined";
+        // var what = "** ROOM ("+gSXE.room+") joined";
         // line.setAttribute("label", what);
         // gDialog.chat.appendChild(line);
         // gDialog.chat.ensureElementIsVisible(line);
-		
-		if(gShowTimestamps){
-		  var chatBody = gDialog.chat.contentDocument.body;
-		  var menuitem = document.getElementById("itemTimestamps");
-		  showTimestamps(menuitem, chatBody);
-		}
+
+        if (gMUC.showTimestamps) {
+          var chatBody = gDialog.chat.contentDocument.body;
+          var menuitem = document.getElementById("itemTimestamps");
+          showTimestamps(menuitem, chatBody);
+        }
       });
     }
   });
 }
 
 function addMessageToChat(who, mess) {
-  trace(mess, "message");
   var chatContent = gDialog.chat.contentDocument;
   var needScroll = isScrolledToBottom();
 
@@ -81,10 +80,10 @@ function addMessageToChat(who, mess) {
 
   // create sender span
   var sender = chatContent.createElement("span");
-  if (gLastSender != who || gLastSender.length == 0) {
+  if (gMUC.lastSender != who || gMUC.lastSender.length == 0) {
     sender.className = "sender";
     sender.textContent = who;
-    gLastSender = who;
+    gMUC.lastSender = who;
   }
 
   // create message span
@@ -118,32 +117,29 @@ function addMessageToChat(who, mess) {
 // toggle timestamps in the chat box
 function toggleTimestamps(menuitem) {
   var chatBody = gDialog.chat.contentDocument.body;
-  gShowTimestamps = !gShowTimestamps;
-  prefs.setBoolPref("timestamp", gShowTimestamps);
-  
-  if (gShowTimestamps) {
-   
+  gMUC.showTimestamps = !gMUC.showTimestamps;
+  gPrefs.setBoolPref("timestamp", gMUC.showTimestamps);
+
+  if (gMUC.showTimestamps) {
     showTimestamps(menuitem, chatBody);
   } else {
-    removeTimestamps(menuitem, chatBody);
+    hideTimestamps(menuitem, chatBody);
   }
 }
-
 function showTimestamps(menuitem, chatBody) {
-	var needScroll = isScrolledToBottom();;
-    chatBody.className = "showTimestamps";
-    menuitem.setAttribute("checked", "true");
-    if (needScroll) {
-      scrollToBottom();
-    }
+  var needScroll = isScrolledToBottom();;
+  chatBody.className = "showTimestamps";
+  menuitem.setAttribute("checked", "true");
+  if (needScroll) {
+    scrollToBottom();
+  }
+}
+function hideTimestamps(menuitem, chatBody) {
+  chatBody.className = "";
+  menuitem.removeAttribute("checked");
 }
 
-function removeTimestamps(menuitem, chatBody) {
-    chatBody.className = "";
-    menuitem.removeAttribute("checked");
-}
-
-// XXX 
+// XXX
 function manageHighLight() {
   var lines = gDialog.chat.contentDocument.getElementsByTagName("p");
   for (var i = 0; i < lines.length; i++) {
@@ -194,8 +190,8 @@ function cleanBoxes() {
 function manageSendChat() {
   if (gDialog.chatInput.value != '') {
     sendChat();
-    chatHistory.push(gDialog.chatInput.value);
-    chatHistoryIndex = chatHistory.length;
+    gMUC.history.push(gDialog.chatInput.value);
+    gMUC.historyIndex = gMUC.history.length;
     reset();
   }
 }
@@ -204,20 +200,20 @@ function manageKey(event) {
   if (event.keyCode == 13) { // return key
     manageSendChat();
   } else if (event.keyCode == 38) { // up key
-    if (chatHistoryIndex > 0) {
-      if (gDialog.chatInput.value != '' && chatHistoryIndex == chatHistory.length) {
-        chatHistory.push(gDialog.chatInput.value);
+    if (gMUC.historyIndex > 0) {
+      if (gDialog.chatInput.value != '' && gMUC.historyIndex == gMUC.history.length) {
+        gMUC.history.push(gDialog.chatInput.value);
       }
-      chatHistoryIndex--;
-      gDialog.chatInput.value = chatHistory[chatHistoryIndex];
+      gMUC.historyIndex--;
+      gDialog.chatInput.value = gMUC.history[gMUC.historyIndex];
     }
   } else if (event.keyCode == 40) { // down key
-    if (chatHistoryIndex < chatHistory.length) {
-      chatHistoryIndex++;
-      if (chatHistoryIndex == chatHistory.length) {
+    if (gMUC.historyIndex < gMUC.history.length) {
+      gMUC.historyIndex++;
+      if (gMUC.historyIndex == gMUC.history.length) {
         gDialog.chatInput.value = '';
       } else {
-        gDialog.chatInput.value = chatHistory[chatHistoryIndex];
+        gDialog.chatInput.value = gMUC.history[gMUC.historyIndex];
       }
     }
   }
@@ -245,7 +241,7 @@ function xmppConsoleWindow(){
   );
 };
 
-function optionsWindow(){
+function xmppOptionsWindow(){
   window.openDialog(
     "chrome://sxEdit/content/options/options.xul",
     "Preferences",
