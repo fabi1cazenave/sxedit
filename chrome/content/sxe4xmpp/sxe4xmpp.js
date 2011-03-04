@@ -28,8 +28,13 @@ function channels() {
       ev.xml..@type == 'groupchat'
     ),
     function (message) {
-      var who = message.stanza.@from.split("/")[1];
-      addMessageToChat(who, message.stanza.body);
+      var who   = message.stanza.@from.split("/")[1];
+      var stamp = message.stanza..*::delay.@stamp; // XXX tweak namespaces.jsm instead
+      var time  = null;
+      if (stamp) { // ISO 8601 format: "2011-03-03T21:53:46Z"
+        time = stamp.slice(11, 16);
+      }
+      addMessageToChat(who, message.stanza.body, time);
     }
   );
 

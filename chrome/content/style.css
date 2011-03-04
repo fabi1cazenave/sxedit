@@ -33,4 +33,10 @@ span.timestamp {
   float: right;
   color: #666;
 }
+.showTimestamps span.timestamp:before {
+  content: "[";
+}
+.showTimestamps span.timestamp:after {
+  content: "]";
+}
 

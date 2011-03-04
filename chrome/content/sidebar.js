@@ -69,7 +69,7 @@ function xmppUpDown() {
   });
 }
 
-function addMessageToChat(who, mess) {
+function addMessageToChat(who, mess, stamp) {
   var chatContent = gDialog.chat.contentDocument;
   var needScroll = isScrolledToBottom();
 
@@ -92,16 +92,16 @@ function addMessageToChat(who, mess) {
   message.textContent = mess;
 
   // create timestamp span
-  function checkTime(i) {
-    if (i < 10) {
-      i = "0" + i;
+  if (!stamp) {
+    function twoDigits(i) {
+      return (i < 10) ? "0" + i : i;
     }
-    return i;
+    var d = new Date();
+    stamp = twoDigits(d.getHours()) + ":" + twoDigits(d.getMinutes());
   }
-  var d = new Date();
   var timestamp = chatContent.createElement("span");
   timestamp.className = "timestamp";
-  timestamp.textContent = "[" + checkTime(d.getHours()) + ":" + checkTime(d.getMinutes()) + "] ";
+  timestamp.textContent = stamp;
 
   // append full message to the chat page
   line.appendChild(sender);
