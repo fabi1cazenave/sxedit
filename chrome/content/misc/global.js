@@ -7,11 +7,6 @@ var gSXE    = {}; // SXE engine
 var gMUC    = {}; // Multi-User Chat
 var gDialog = {}; // UI elements
 
-//var gShowTimestamps = false;
-//var gLastSender = "";
-//var chatHistory = [];
-//var chatHistoryIndex = 0;
-
 function Startup() {
 
   // Get preferences
@@ -27,6 +22,7 @@ function Startup() {
   gDialog.optionsButton  = document.getElementById("optionsButton");
 
   gDialog.peopleList     = document.getElementById("peopleList");
+  gDialog.timestampsItem = document.getElementById("timestampsItem");
   gDialog.chat           = document.getElementById("chat");
   gDialog.chatInput      = document.getElementById("chatInput");
   gDialog.chatInputSend  = document.getElementById("chatInputSend");
@@ -36,7 +32,7 @@ function Startup() {
   gMUC.lastSender     = "";
   gMUC.history        = [];
   gMUC.historyIndex   = 0;
-  
+
   // SXE engine
   gSXE.room           = gPrefs.getCharPref("muc");
   gSXE.initiator      = "";

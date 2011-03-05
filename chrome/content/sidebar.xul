@@ -42,11 +42,12 @@
                      hidden="true"
                      mode="undetermined" />
 
-      <!--<toolbarbutton oncommand="makeTree();"-->
-      <!--               label="Tree"-->
-      <!--               id="treeButton"-->
-      <!--               tooltiptext="(tmp) Tree"-->
-      <!--               disabled="false" />-->
+      <!-- <toolbarbutton oncommand="makeTree();"
+        -                 label="Tree"
+        -                 id="treeButton"
+        -                 tooltiptext="(tmp) Tree"
+        -                 disabled="false" />
+        -->
 
       <spacer flex="1" />
 
@@ -67,7 +68,7 @@
   </toolbox>
 
   <menupopup id="chatPopup">
-    <menuitem id="itemTimestamps" label="Show Timestamps" type="checkbox" oncommand="toggleTimestamps(this)" />
+    <menuitem id="timestampsItem" label="&showTimestamps.label;" type="checkbox" oncommand="toggleTimestamps(this)" />
   </menupopup>
 
   <groupbox flex="1">

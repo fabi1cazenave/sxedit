@@ -61,7 +61,7 @@ function xmppUpDown() {
 
         if (gMUC.showTimestamps) {
           var chatBody = gDialog.chat.contentDocument.body;
-          var menuitem = document.getElementById("itemTimestamps");
+          var menuitem = gDialog.timestampsItem;
           showTimestamps(menuitem, chatBody);
         }
       });

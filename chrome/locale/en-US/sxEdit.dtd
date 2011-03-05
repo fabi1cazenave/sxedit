@@ -8,3 +8,6 @@
 <!ENTITY xmppConsole.accesskey  "c">
 <!ENTITY aboutConfig.label      "about:config…">
 <!ENTITY aboutConfig.accesskey  "a">
+
+<!ENTITY showTimestamps.label   "Show Timestamps">
+
