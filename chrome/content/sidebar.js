@@ -61,9 +61,7 @@ function xmppUpDown() {
         // gDialog.chat.ensureElementIsVisible(line);
 
         if (gMUC.showTimestamps) {
-          var chatBody = gDialog.chat.contentDocument.body;
-          var menuitem = gDialog.timestampsItem;
-          showTimestamps(menuitem, chatBody);
+          showTimestamps();
         }
       });
     }
@@ -117,27 +115,25 @@ function addMessageToChat(who, mess, stamp) {
 
 // toggle timestamps in the chat box
 function toggleTimestamps(menuitem) {
-  var chatBody = gDialog.chat.contentDocument.body;
   gMUC.showTimestamps = !gMUC.showTimestamps;
   gPrefs.setBoolPref("timestamp", gMUC.showTimestamps);
-
   if (gMUC.showTimestamps) {
-    showTimestamps(menuitem, chatBody);
+    showTimestamps();
   } else {
-    hideTimestamps(menuitem, chatBody);
+    hideTimestamps();
   }
 }
-function showTimestamps(menuitem, chatBody) {
+function showTimestamps() {
   var needScroll = isScrolledToBottom();
-  chatBody.className = "showTimestamps";
-  menuitem.setAttribute("checked", "true");
+  gDialog.chat.contentDocument.body.className = "showTimestamps";
+  gDialog.timestampsItem.setAttribute("checked", "true");
   if (needScroll) {
     scrollToBottom();
   }
 }
-function hideTimestamps(menuitem, chatBody) {
-  chatBody.className = "";
-  menuitem.removeAttribute("checked");
+function hideTimestamps() {
+  gDialog.chat.contentDocument.body.className = "";
+  gDialog.timestampsItem.removeAttribute("checked");
 }
 
 // XXX

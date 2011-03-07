@@ -68,7 +68,7 @@
   </toolbox>
 
   <menupopup id="chatPopup">
-    <menuitem id="timestampsItem" label="&showTimestamps.label;" type="checkbox" oncommand="toggleTimestamps(this)" />
+    <menuitem id="timestampsItem" label="&showTimestamps.label;" type="checkbox" oncommand="toggleTimestamps()" />
   </menupopup>
 
   <groupbox flex="1">

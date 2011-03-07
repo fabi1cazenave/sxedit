@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="iso-8859-15"?>
-<!-- Générateur de fichier install.rdf
-     http://xulfr.org, le 17/10/2009
--->
-
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">

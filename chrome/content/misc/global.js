@@ -36,8 +36,12 @@ function Startup() {
 
   // SXE engine
   gSXE.room           = gPrefs.getCharPref("muc");
+  gSXE.autoLogin      = gPrefs.getBoolPref("autoLogin");
   gSXE.initiator      = "";
   gSXE.sessionInit    = "";
   gSXE.jingleInit     = "";
 
+  // dirty auto-login
+  if (gSXE.autoLogin && !gChannel)
+    xmppUpDown();
 }
