@@ -51,6 +51,12 @@
 
       <spacer flex="1" />
 
+      <toolbarbutton id="testButton"
+                     oncommand="test();"
+                     label="test"
+                     disabled="false"
+                     state="disabled" />
+
       <toolbarbutton id="optionsButton"
                      tooltiptext="&optionsButton.tooltip;"
                      type="menu-button">

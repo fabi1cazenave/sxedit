@@ -2,10 +2,11 @@
 
 Components.utils.import("resource://sxEdit/namespaces.jsm");
 
-var gPrefs  = null;
-var gSXE    = {}; // SXE engine
-var gMUC    = {}; // Multi-User Chat
-var gDialog = {}; // UI elements
+var gPrefs   = null; // User preferences
+var gChannel = null; // XMPP channel
+var gSXE     = {};   // SXE engine
+var gMUC     = {};   // Multi-User Chat
+var gDialog  = {};   // UI elements
 
 function Startup() {
 

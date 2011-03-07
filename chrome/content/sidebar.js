@@ -3,6 +3,7 @@
 // connect Button
 function xmppUpDown() {
   XMPP.accounts.forEach(function(account) {
+
     // if the connection is up
     if (XMPP.isUp(account)) {
       // closes the connection
@@ -29,7 +30,7 @@ function xmppUpDown() {
       // ups the user Jabber account
       XMPP.up(account, function() {
         // creates the XMPP communication channel
-        channels();
+        if (!gChannel) channels();
 
         // cleans the listboxes
         cleanBoxes();

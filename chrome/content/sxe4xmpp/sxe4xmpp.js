@@ -31,14 +31,14 @@ function channels() {
       var who   = message.stanza.@from.split("/")[1];
       var stamp = message.stanza..*::delay.@stamp; // XXX tweak namespaces.jsm instead
       var time  = null;
-      if (stamp) { // ISO 8601 format: "2011-03-03T21:53:46Z"
+      if (stamp && !(/^\s*$/).test(stamp)) { // ISO 8601 format: "2011-03-03T21:53:46Z"
         time = stamp.slice(11, 16);
       }
       addMessageToChat(who, message.stanza.body, time);
     }
   );
 
-  // filters jingle iq
+  // filters jingle IQ
   channel.on(
     function (ev) (
       ev.name == 'iq' &&
@@ -46,10 +46,8 @@ function channels() {
       ev.xml..*::jingle.length() > 0
     ),
     function (iq) {
-
       if (iq.stanza.@type == 'error')
         dump('Error stanza received:\n' + iq.stanza);
-
       else {
         var id       = iq.stanza.@id;
         var sender   = iq.stanza.@from;
@@ -58,12 +56,12 @@ function channels() {
         var who      = iq.stanza..*::jingle.@initiator;
         var what     = iq.stanza..*::jingle..*::content.@name;
 
-        /* The party always acks an IQ reception */
+        // The party always acks an IQ reception
         XMPP.accounts.forEach(function(account) {
           XMPP.send(account, sxeAck(id, account.jid, sender));
         });
 
-        /* Invitation received */
+        // Invitation received
         if (action == 'session-initiate') {
           var who   = iq.stanza..*::jingle.@initiator;
           var what  = iq.stanza..*::jingle..*::content.@name;
@@ -75,7 +73,7 @@ function channels() {
             '\n\nAccept and proceed session connection ?'
           );
 
-          /* The party accepts or refuses the invitation */
+          // The party accepts or refuses the invitation
           XMPP.accounts.forEach(function(account) {
             XMPP.send(
               account,
@@ -83,16 +81,16 @@ function channels() {
               sxeSessionRefusal(randomString(10), account.jid, sender, jingleId, where)
             );
 
-            /* If the party accepts the invitation, it sends a ServiceDisco stanza...*/
+            // If the party accepts the invitation, it sends a ServiceDisco stanza...
             if (choice) {
               XMPP.send(
                 account,
                 sxeServiceDiscoRequest('disco', account.jid, sender),
                 function(reply) {
-                  /* XXX If the ServiceDisco Response is compliant...*/
+                  // XXX If the ServiceDisco Response is compliant...*/
                   dump('Party: DiscoInfo answer received:\n' + reply);
 
-                  /* The party sends a SessionConnection msg */
+                  // The party sends a SessionConnection msg
                   XMPP.send(
                     account,
                     sxeSessionConnection (account.jid, sender, jingleId)
@@ -104,13 +102,13 @@ function channels() {
           });
         }
 
-        /* The initiator understands the contact accepts the invitation */
+        // The initiator understands the contact accepts the invitation
         else if (action == 'session-accept') {
           gDialog.shareButton.setAttribute("state", "done");
           dump('Initiator: Session Accepted\n' + iq.stanza);
         }
 
-        /* The initiator understands the contact refuses/closes the invitation */
+        // The initiator understands the contact refuses/closes the invitation
         else if (action == 'session-terminate') {
           gDialog.shareButton.setAttribute("state", "on");
           dump('Initiator: Session Refused\n' + iq.stanza);
@@ -128,8 +126,8 @@ function channels() {
       (ev.xml..ns_disco_info::query).length() > 0
     ),
     function (iq) {
-      var id       = iq.stanza.@id;
-      var sender   = iq.stanza.@from;
+      var id     = iq.stanza.@id;
+      var sender = iq.stanza.@from;
 
       // stanza is empty, that's a request
       if ((iq.stanza..ns_disco_info::query..*).length() == 0) {
@@ -150,8 +148,8 @@ function channels() {
       (ev.xml..ns_sxe::sxe).length() > 0
     ),
     function (message) {
-      var sender      = message.stanza.@from;
-      var session     = message.stanza.ns_sxe::sxe.@session;
+      var sender  = message.stanza.@from;
+      var session = message.stanza.ns_sxe::sxe.@session;
 
       // <connect /> request is received, we send a <state-offer />
       if ((message.stanza.ns_sxe::sxe.ns_sxe::connect).length() == 1) {
@@ -200,7 +198,7 @@ function channels() {
   );
 
 
-  /* Get the in-MUC contacts */
+  // Get the in-MUC contacts
   channel.on(
     function(ev) (
       ev.name == 'presence' &&
@@ -230,6 +228,8 @@ function channels() {
     }
   );
 
+  // remember the XMPP channel has been initialized
+  gChannel = channel;
 };
 
 
@@ -272,4 +272,8 @@ function _presence(from, to, type) {
   // returns the complete PRESENCE stanza
   return  <presence from={from} to={to} type={type} />;
 
+}
+
+function test() {
+  alert(XMPP.accounts.length);
 }
