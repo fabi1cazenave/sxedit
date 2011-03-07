@@ -274,6 +274,3 @@ function _presence(from, to, type) {
 
 }
 
-function test() {
-  alert(XMPP.accounts.length);
-}
