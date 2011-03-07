@@ -22,3 +22,39 @@ function sxeSessionConnection (from, dest, session) {
 function sxeAck (id, from, dest) {
   return _iq(from, dest, id, 'result', null);
 }
+
+/**
+  * TODO: detect modifications in the main window
+  */
+
+var gCurrentNode = null; // DOM node being edited
+var gCurrentHTML = "";   // innerHTML of the current node
+
+function sxeSendModifiedNode(node) {
+  // TODO: send modifications of gCurrentNode over SXE
+  if (node) trace(node.innerHTML);
+}
+
+window.setInterval(function() {
+  var focusNode = window.top.gLastFocusNode;
+  if (!focusNode) {
+    // document not ready yet
+    gCurrentNode = null;
+    gCurrentHTML = "";
+  }
+  else if (!gCurrentNode) {
+    // first focus
+    gCurrentNode = focusNode;
+    gCurrentHTML = focusNode.innerHTML;
+  }
+  else {
+    if (gCurrentHTML != gCurrentNode.innerHTML) {
+      // node has been modified
+      // XXX this doesn't check attributes
+      sxeSendModifiedNode(gCurrentNode);
+    }
+    gCurrentNode = focusNode;
+    gCurrentHTML = focusNode.innerHTML;
+  }
+}, 1000);
+
