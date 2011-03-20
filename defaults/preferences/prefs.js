@@ -44,4 +44,5 @@ pref("xmpp.account.sxedit.resource",           "kompozer");
 pref("xmpp.account.sxedit.autoLogin",          true);
 pref("xmpp.account.sxedit.timestamp",          false);
 pref("xmpp.account.sxedit.muc",                "sxe@conference.papaya.im");
+pref("xmpp.account.sxedit.color",              "#000000");
 

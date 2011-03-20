@@ -103,6 +103,7 @@ function sxeMap(parent, node) {
         // type == element
         case 1 :
           var element = cn;
+          element.setAttribute('sxeid', rid);
           var name = cn.nodeName;
           var type = 'element';
           xml += getSXEElement(element, rid, type, version, parent, pweight, ns, name);
@@ -146,21 +147,44 @@ function sxeMap(parent, node) {
   return xml;
 }
 
+function getSXESetElement (target, version, chdata, element) {
+  var xml = new XML();
+  xml = <set target={target}
+          version={version}
+          chdata={chdata}
+          />
+          
+  // adds eventual attributes
+  if (element.hasAttributes()) {
+    var attrib = element.attributes;
+    for (var i=0; i < attrib.length; i++) {
+      xml += <set target={target}
+          version={version}
+          name={attrib[i].name}
+          chdata={attrib[i].value}
+          />
+    }
+  }
+  return xml;
+}
+
 function getSXEElement (element, rid, type, version, parent, pweight, ns, name) {
   var xml = new XML();
   xml = <new rid={rid}
-                  type={type}
-                  version={version}
-                  parent={parent}
-                  primary-weight={pweight}
-                  ns={ns}
-                  name={name} />;
+          type={type}
+          version={version}
+          parent={parent}
+          primary-weight={pweight}
+          ns={ns}
+          name={name} />;
 
   // adds eventual attributes
   if (element.hasAttributes()) {
     var attrib = element.attributes;
     for (var i=0; i < attrib.length; i++) {
-      xml += getSXEAttribute(randomString(10), 'attr', version, rid, pweight, ns, attrib[i].name, attrib[i].value);
+      if(attrib[i].name != 'sxeid') {
+        xml += getSXEAttribute(randomString(10), 'attr', version, rid, pweight, ns, attrib[i].name, attrib[i].value);
+      }
     }
   }
 
@@ -227,8 +251,10 @@ function sxeUnmapNodes (mapping, rid) {
 
     // elements : works
     if (child.@type == 'element') {
+      if(child.@name.toLowerCase() == 'br') continue;
       var element = <{child.@name}>{sxeUnmapNodes(mapping, child.@rid)}</{child.@name}>;
-
+      element.@['sxeid'] = child.@rid;
+      
       // attributes : works
       var attribs = mapping..SXEns::new.(@parent == child.@rid && @type == 'attr');
       for each (var attrib in attribs)

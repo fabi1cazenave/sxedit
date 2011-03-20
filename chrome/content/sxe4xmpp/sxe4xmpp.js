@@ -194,6 +194,77 @@ function channels() {
         window.top.GetCurrentEditor().rebuildDocumentFromSource(sxeUnmap(message.stanza..*::state));
         gDialog.progressMetter.setAttribute('value', '100');
       }
+      
+      // other received
+      else if ((message.stanza.ns_sxe::sxe).length() == 1) {
+        // Parse new nodes
+        for (var i = 0; i < (message.stanza..*::new).length(); i++) {
+          var node = (message.stanza..*::new)[i];
+          var rid = node.@rid;
+          var type = node.@type;
+          var parent = node.@parent;
+          //var pweight = node.@primary-weight;
+          var name = node.@name;
+          
+          // TODO : manage body changes differently
+          if(name.toLowerCase() == "body") continue;
+          
+          var editor = window.top.document.getElementById('content-frame').contentDocument;
+          
+          // Creating new element
+          if(type == 'element') {
+            var elem = editor.createElement(name);
+            elem.setAttribute('sxeid', rid);
+            var parentNode = editor.querySelector('[sxeid=' + parent + ']');
+            parentNode.appendChild(elem);
+          }
+          
+          // Creating new attribute
+          else if(type == 'attr') {
+            var elem = editor.querySelector('[sxeid=' + parent + ']');
+            var chdata = node.@chdata;
+            elem.setAttribute(name, chdata);
+          }
+          
+          // Creating new text
+          else if(type == 'text') {
+            var elem = editor.querySelector('[sxeid=' + parent + ']');
+            var chdata = node.@chdata;
+            elem.innerHTML(chdata);
+          }
+        }
+        
+        // Parse set nodes
+        for (var i = 0; i < (message.stanza..*::set).length(); i++) {
+          var node = (message.stanza..*::set)[i];
+          var target = node.@target;
+          var chdata = node.@chdata;
+               
+          var editor = window.top.document.getElementById('content-frame').contentDocument;
+          
+          var elem = editor.querySelector('[sxeid=' + target + ']');
+          
+          // If we don't find a name, it means we receive the content of an element
+          if((node.@name).length() == 0) {
+            elem.innerHTML = chdata;
+            
+            // We remove locker attribute. It will be created again if needed
+            elem.removeAttribute('locker');
+            elem.removeAttribute('style');
+          }
+          
+          // Else, we receive an attribute
+          else {
+            elem.setAttribute(node.@name, chdata);
+          }
+          
+          trace(chdata);
+        }
+        
+        // TODO
+        // Parse remove nodes
+        
+      }
     }
   );
 
